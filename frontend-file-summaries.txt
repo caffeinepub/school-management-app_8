@@ -1,0 +1,6 @@
+{
+  "frontend/src/components/layout/DashboardLayout.tsx": "Reusable dashboard shell with a collapsible navy sidebar (logo, role badge, nav items, logout) and a main content area with header and footer. Fixed `LucideIcon` import to come from `lucide-react` instead of `react`.",
+  "frontend/src/components/student/ComplaintBoxSection.tsx": "Student-facing complaint submission form with a textarea, character counter, validation, success/error feedback, and an informational card explaining how the complaint system works.",
+  "frontend/src/index.css": "Global stylesheet with Tailwind directives, OKLCH-based shadcn/ui semantic color tokens for light and dark modes, base body typography styles, and a school-themed background pattern utility class.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending the theme with shadcn/ui semantic color tokens, three school-specific color tokens (`school-navy`, `school-gold`, `school-bg`), custom border radius, font family, and accordion animations."
+}

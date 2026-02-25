@@ -1,0 +1,187 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "School Management App with Teacher & Student Roles",
+  "requirements": [
+    {
+      "id": "REQ-9",
+      "summary": "Build a login page with teacher and student login forms that redirect to role-appropriate dashboards",
+      "acceptanceCriteria": [
+        "Login page is shown before any app content",
+        "Teacher and student login are clearly separated",
+        "Successful login routes to the correct dashboard",
+        "Error message is shown for invalid credentials"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "create",
+          "description": "Create the login page component with two separate login forms (teacher and student). Use tab or toggle UI to switch between 'Sign in as Teacher' and 'Sign in as Student'. On successful teacher login (calling backend functions), redirect to /teacher/dashboard. On successful student login (calling studentLogin backend function), redirect to /student/dashboard. Display error messages for invalid credentials. Include the generated school logo image from frontend/public/assets/generated/school-logo.dim_256x256.png at the top of the page."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the LoginPage as the default route. Configure routing so that unauthenticated users see LoginPage first, and authenticated users are redirected to their role-appropriate dashboard (/teacher/dashboard or /student/dashboard). Add route guards to enforce role-based access."
+        },
+        {
+          "path": "frontend/src/hooks/useAuth.ts",
+          "operation": "create",
+          "description": "Create a custom hook to manage authentication state, login/logout actions for both teacher and student roles, and role detection. Store the current role (teacher or student) and session info in context or state. Provide methods: teacherLogin(username, password), studentLogin(username, password), logout(), and isAuthenticated getter."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Build a Teacher Dashboard with navigation for Students, Attendance, Marks, Events, Semesters & Exams, and Complaints sections, providing full CRUD and admin capabilities",
+      "acceptanceCriteria": [
+        "All six sections are accessible from a sidebar or tab navigation",
+        "Teacher can create new student accounts from the Students section",
+        "Attendance, marks, and semester exam results have forms for data entry",
+        "Events section allows full CRUD",
+        "Complaints section displays all student complaints in a readable list"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/TeacherDashboard.tsx",
+          "operation": "create",
+          "description": "Create the main teacher dashboard layout with a sidebar navigation listing six sections: Students, Attendance, Marks, Events, Semesters & Exams, and Complaints. Render the appropriate section component based on the selected navigation item. Include the school logo from frontend/public/assets/generated/school-logo.dim_256x256.png in the header or sidebar top."
+        },
+        {
+          "path": "frontend/src/components/teacher/StudentsSection.tsx",
+          "operation": "create",
+          "description": "Create a section component for managing students. Display a list of all students (fetch via getAllStudents backend function). Provide a form to create new student accounts by entering name, username, and password (calling createStudent backend function). Show success/error feedback after account creation."
+        },
+        {
+          "path": "frontend/src/components/teacher/AttendanceSection.tsx",
+          "operation": "create",
+          "description": "Create a section component for attendance management. Display attendance records (fetch via getAttendanceAll backend function). Provide forms to add new attendance (addAttendance) and update existing attendance (updateAttendance) by selecting student, date, and status (present/absent). Show a table or list view grouped by student or date."
+        },
+        {
+          "path": "frontend/src/components/teacher/MarksSection.tsx",
+          "operation": "create",
+          "description": "Create a section component for marks management. Display all marks (fetch via getAllMarks backend function). Provide forms to add new marks (addMark) and update marks (updateMark) by selecting student, subject, semester, score, and maxScore. Show marks grouped by student or subject."
+        },
+        {
+          "path": "frontend/src/components/teacher/EventsSection.tsx",
+          "operation": "create",
+          "description": "Create a section component for events management. Display all events (fetch via getAllEvents backend function). Provide forms to create new events (createEvent), update events (updateEvent), and delete events (deleteEvent) by entering title, description, and date. Show events in a list or card view."
+        },
+        {
+          "path": "frontend/src/components/teacher/SemestersSection.tsx",
+          "operation": "create",
+          "description": "Create a section component for semester and exam results management. Display all semesters (fetch via getSemesters backend function). Provide a form to add new semesters (addSemester) by entering name, startDate, and endDate. Provide a form to add semester exam results (addSemesterExamResult) by selecting student, semester, subject, score, and maxScore. Display existing exam results grouped by semester or student."
+        },
+        {
+          "path": "frontend/src/components/teacher/ComplaintsSection.tsx",
+          "operation": "create",
+          "description": "Create a section component for viewing student complaints. Fetch all complaints (getAllComplaints backend function) and display them in a list or table showing student name, message, and timestamp. This section is read-only for the teacher."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the TeacherDashboard route at /teacher/dashboard. Add a route guard to ensure only authenticated teachers can access this route. If a student tries to access it, redirect to the student dashboard or show an access-denied message."
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Build a Student Dashboard with read-only sections for My Attendance, My Marks, Events, My Semester Results, and a Complaint Box form",
+      "acceptanceCriteria": [
+        "All four read-only sections display only the logged-in student's data",
+        "Complaint Box allows typing and submitting a complaint message",
+        "No edit or delete controls are shown to students",
+        "Events section shows all school events"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/StudentDashboard.tsx",
+          "operation": "create",
+          "description": "Create the main student dashboard layout with navigation for My Attendance, My Marks, Events, My Semester Results, and Complaint Box. Render the appropriate section based on selected navigation. Include the school logo from frontend/public/assets/generated/school-logo.dim_256x256.png in the header or sidebar."
+        },
+        {
+          "path": "frontend/src/components/student/MyAttendanceSection.tsx",
+          "operation": "create",
+          "description": "Create a read-only section component displaying the logged-in student's attendance records. Fetch the student's own attendance via getAttendanceByStudent backend function (using the student's principal). Show attendance in a table or list grouped by date with status (present/absent)."
+        },
+        {
+          "path": "frontend/src/components/student/MyMarksSection.tsx",
+          "operation": "create",
+          "description": "Create a read-only section component displaying the logged-in student's marks. Fetch the student's marks via getMarksByStudent backend function. Display marks grouped by subject or semester showing score and maxScore."
+        },
+        {
+          "path": "frontend/src/components/student/EventsSection.tsx",
+          "operation": "create",
+          "description": "Create a read-only section component displaying all school events. Fetch all events via getAllEvents backend function. Show events in a list or card view with title, description, and date. No edit or delete controls."
+        },
+        {
+          "path": "frontend/src/components/student/MySemesterResultsSection.tsx",
+          "operation": "create",
+          "description": "Create a read-only section component displaying the logged-in student's semester exam results. Fetch results via getSemesterExamResultsByStudent backend function. Display results grouped by semester showing subject, score, and maxScore."
+        },
+        {
+          "path": "frontend/src/components/student/ComplaintBoxSection.tsx",
+          "operation": "create",
+          "description": "Create a section component with a text input form for submitting complaints. On submit, call submitComplaint backend function with the complaint message. Show success/error feedback after submission. Students cannot view previously submitted complaints."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the StudentDashboard route at /student/dashboard. Add a route guard to ensure only authenticated students can access this route. If a teacher tries to access it, redirect to the teacher dashboard."
+        }
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "summary": "Apply a clean, professional school-themed visual design with deep navy, white, and gold accents, consistent typography, and structured sidebar layout",
+      "acceptanceCriteria": [
+        "Color palette is consistently applied across all pages",
+        "Typography is legible and professional",
+        "Dashboard layout uses a sidebar for navigation",
+        "Cards or panels are used for content sections"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define CSS custom properties for the school-themed color palette (deep navy primary, white background, gold accents) and apply global typography styles using a clean sans-serif font family. Ensure all components reference these variables for consistency."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend the Tailwind theme with custom colors for navy, gold, and white to match the school theme. Configure font family for sans-serif typography. Ensure the design system is consistently applied across all pages and components."
+        },
+        {
+          "path": "frontend/src/components/layout/DashboardLayout.tsx",
+          "operation": "create",
+          "description": "Create a reusable dashboard layout component with a structured sidebar for navigation and a main content area. Use card-based sections for displaying content. Apply the school-themed styling (navy sidebar, white content area, gold highlights). This layout will be used by both TeacherDashboard and StudentDashboard."
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Display the generated school logo/crest illustration on the login page and dashboard header",
+      "acceptanceCriteria": [
+        "Logo appears on the login page centered above the login form",
+        "Logo appears in the dashboard header/sidebar top",
+        "Image is served from frontend/public/assets/generated"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "modify",
+          "description": "Add an <img> element at the top of the login page displaying the generated school logo from frontend/public/assets/generated/school-logo.dim_256x256.png. Center the logo above the login form tabs."
+        },
+        {
+          "path": "frontend/src/pages/TeacherDashboard.tsx",
+          "operation": "modify",
+          "description": "Add an <img> element in the dashboard header or sidebar top displaying the generated school logo from frontend/public/assets/generated/school-logo.dim_256x256.png."
+        },
+        {
+          "path": "frontend/src/pages/StudentDashboard.tsx",
+          "operation": "modify",
+          "description": "Add an <img> element in the dashboard header or sidebar top displaying the generated school logo from frontend/public/assets/generated/school-logo.dim_256x256.png."
+        }
+      ]
+    }
+  ]
+}

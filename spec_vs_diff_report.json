@@ -1,0 +1,133 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-25T01:30:48.812Z",
+  "summary": "The diff implements most of the required school management app features including backend data models, authentication, CRUD operations, and frontend dashboards. However, several critical requirements have gaps: stable variables are not used (Map/List are not stable), the backend uses Internet Identity/Principal-based auth instead of the specified simple username/password system with session tokens, the school logo image file is missing, and role-based access enforcement on the frontend (route guards) is not implemented.",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "Store all entities in stable variables for persistence across canister upgrades",
+      "reason": "The backend uses Map.empty and List.empty from mo:core which are not stable variables. Stable variables require the stable keyword in Motoko. No stable var declarations are visible in the truncated main.mo.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Simple username/password session token system — teacher logs in and receives a session token; do not use external authentication providers",
+      "reason": "The backend uses MixinAuthorization and AccessControl from an authorization module that relies on Internet Identity/Principal-based access control. The useActor.ts calls _initializeAccessControlWithSecret and uses useInternetIdentity. No session token generation for teacher login is visible. The constraint explicitly prohibits external authentication providers.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useActor.ts",
+        "frontend/src/hooks/useInternetIdentity.ts"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "studentLogin and studentLogout functions exposed on the backend; student session only grants access to their own data",
+      "reason": "The backend relies on Principal-based access control rather than username/password session tokens for students. No explicit studentLogin/studentLogout functions returning session tokens are visible in main.mo.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "requirement": "Login page with teacher and student login forms using simple username/password (no external auth provider)",
+      "reason": "The app wraps everything in InternetIdentityProvider in main.tsx and the actor uses Internet Identity. The login page and auth flow appear to be built around Internet Identity rather than the required simple username/password system.",
+      "evidence": [
+        "frontend/src/main.tsx",
+        "frontend/src/hooks/useInternetIdentity.ts",
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "requirement": "Teacher dashboard must be completely inaccessible to students — role-based access enforced on frontend",
+      "reason": "No route guards or access control checks are visible in App.tsx for the teacher dashboard route. The teacher route /teacher/dashboard has no protection against student access on the frontend.",
+      "evidence": [
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "requirement": "School logo/crest illustration (school-logo.dim_256x256.png) served from frontend/public/assets/generated",
+      "reason": "The image file school-logo.dim_256x256.png is not present in the diff. The diff shows 30 added files but the image file is not among the listed files, and it is referenced in the component but not generated/added.",
+      "evidence": [
+        "frontend/src/components/layout/DashboardLayout.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Internet Identity integration via InternetIdentityProvider, useInternetIdentity, and AuthClient",
+      "reason": "The build request explicitly lists Internet Identity integration as a non-goal and constrains the app to use a simple username/password system stored in backend state. The diff implements full Internet Identity support.",
+      "evidence": [
+        "frontend/src/hooks/useInternetIdentity.ts",
+        "frontend/src/main.tsx",
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "MixinAuthorization and AccessControl modules with _initializeAccessControlWithSecret and admin token from URL params",
+      "reason": "The build request requires a simple username/password auth system stored in backend state. The use of a separate authorization mixin with secret tokens passed via URL parameters was not requested.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "UserProfile type and getCallerUserProfile/getUserProfile/saveCallerUserProfile functions in backend",
+      "reason": "These functions and the UserProfile type were not specified in the build request requirements.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "PendingStudent registration flow in backend",
+      "reason": "A pending student registration system was not part of the specified requirements. The spec only requires createStudent (teacher only) with direct student creation.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Attendance rate percentage bar and 75% threshold warning in student attendance section",
+      "reason": "While attendance display was required, the specific 75% threshold warning and visual progress bar were not specified in the requirements.",
+      "evidence": [
+        "frontend/src/components/student/MyAttendanceSection.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.72,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/layout/DashboardLayout.tsx",
+    "frontend/src/components/student/ComplaintBoxSection.tsx",
+    "frontend/src/components/student/MyAttendanceSection.tsx",
+    "frontend/src/components/student/MyMarksSection.tsx",
+    "frontend/src/components/student/MySemesterResultsSection.tsx",
+    "frontend/src/components/student/StudentEventsSection.tsx",
+    "frontend/src/components/teacher/AttendanceSection.tsx",
+    "frontend/src/components/teacher/ComplaintsSection.tsx",
+    "frontend/src/components/teacher/EventsSection.tsx",
+    "frontend/src/components/teacher/MarksSection.tsx",
+    "frontend/src/components/teacher/SemestersSection.tsx",
+    "frontend/src/components/teacher/StudentsSection.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useAuth.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/LoginPage.tsx",
+    "frontend/src/pages/StudentDashboard.tsx",
+    "frontend/src/pages/TeacherDashboard.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

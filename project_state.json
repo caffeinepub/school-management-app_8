@@ -1,0 +1,166 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "School management app with teacher and student roles. Teachers have full admin access (marks entry, attendance, events, semester exams management). Students have read-only access to their own marks, attendance, events, and semester results. Includes login system for both roles and a student complaint box.",
+  "architectural_notes": [
+    "Two user roles: Teacher (full CRUD access) and Student (read-only access to own data + complaint submission)",
+    "Login/authentication required to access the app for both roles"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Flat illustration of a school crest / shield logo with a book and star motif in navy and gold tones (school-logo.dim_256x256.png)",
+  "existing_features": [
+    {
+      "id": "feature-build-a-login-page-as-the-app-entry-point-it-should-have-two-login-forms-one-for-the-teacher-and-one-for-students-after-successful-login-redirect-to-the-appropriate-dashboard-based-on-role-include-a-sign-in-as-teacher-and-sign-in-as-student-tab-or-toggle",
+      "title": "Build a login page as the app entry point. It should have two login forms: one for the teacher and one for students. After successful login, redirect to the appropriate dashboard based on role. Include a 'Sign in as Teacher' and 'Sign in as Student' tab or toggle.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-teacher-dashboard-with-navigation-sections-students-attendance-marks-events-semesters-exams-and-complaints-the-teacher-can-create-student-accounts-enter-and-edit-attendance-per-student-per-date-enter-and-edit-marks-per-student-per-subject-per-semester-create-edit-delete-events-add-semesters-and-enter-semester-exam-results-per-student-view-all-student-complaints",
+      "title": "Build a Teacher Dashboard with navigation sections: Students, Attendance, Marks, Events, Semesters & Exams, and Complaints. The teacher can: create student accounts; enter and edit attendance per student per date; enter and edit marks per student per subject per semester; create/edit/delete events; add semesters and enter semester exam results per student; view all student complaints.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-student-dashboard-with-read-only-sections-my-attendance-my-marks-events-my-semester-results-and-complaint-box-students-can-view-their-own-attendance-records-marks-upcoming-events-and-semester-exam-results-the-complaint-box-section-has-a-text-input-form-to-submit-a-complaint",
+      "title": "Build a Student Dashboard with read-only sections: My Attendance, My Marks, Events, My Semester Results, and Complaint Box. Students can view their own attendance records, marks, upcoming events, and semester exam results. The Complaint Box section has a text input form to submit a complaint.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-clean-professional-school-themed-visual-design-across-the-entire-app-use-a-color-palette-of-deep-navy-and-white-with-gold-accents-clear-sans-serif-typography-a-structured-sidebar-layout-for-dashboards-and-card-based-content-sections-ensure-the-design-is-consistent-across-teacher-and-student-views",
+      "title": "Apply a clean, professional school-themed visual design across the entire app. Use a color palette of deep navy and white with gold accents, clear sans-serif typography, a structured sidebar layout for dashboards, and card-based content sections. Ensure the design is consistent across teacher and student views.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-and-display-a-school-logo-crest-illustration-used-on-the-login-page-and-dashboard-header",
+      "title": "Generate and display a school logo/crest illustration used on the login page and dashboard header.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Teacher login with full admin access",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Student login creation and authentication",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Attendance management (teacher: enter/edit; student: view own)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Marks management (teacher: enter/edit student marks; student: view own marks)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Events management (teacher: create/manage events; student: view events)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Semester exams management (teacher: add/manage semesters and exam results; student: view own results)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Student complaint box for submitting complaints",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Implement a backend data model and actor with the following entities: Teacher (id, username, passwordHash), Student (id, name, username, passwordHash), Attendance (studentId, date, status: present/absent), Mark (studentId, subject, score, maxScore, semester), Event (id, title, description, date), Semester (id, name, startDate, endDate), SemesterExamResult (studentId, semesterId, subject, score, maxScore), Complaint (id, studentId, message, timestamp). Store all entities in stable variables.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Implement teacher authentication: a pre-seeded teacher account (username: 'teacher', password: 'teacher123') that can log in and receive a session token. Expose login and logout functions on the backend.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Implement student account creation by the teacher: the teacher can create new student accounts with a name, username, and password. Students can then log in with those credentials. Expose createStudent, studentLogin, and studentLogout functions on the backend.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Implement backend functions for attendance management: addAttendance (teacher only), updateAttendance (teacher only), getAttendanceByStudent (accessible by teacher for any student, and by the student for their own record), getAttendanceAll (teacher only).",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Implement backend functions for marks management: addMark (teacher only), updateMark (teacher only), getMarksByStudent (teacher for all, student for own), getAllMarks (teacher only).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Implement backend functions for events management: createEvent (teacher only), updateEvent (teacher only), deleteEvent (teacher only), getAllEvents (accessible by both teacher and students).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Implement backend functions for semester and semester exam results management: addSemester (teacher only), getSemesters (all authenticated users), addSemesterExamResult (teacher only), getSemesterExamResultsByStudent (teacher for all, student for own).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Implement backend functions for the student complaint box: submitComplaint (student only, submits a complaint message associated with their studentId), getAllComplaints (teacher only, returns all complaints with student name and timestamp).",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "School Management App",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

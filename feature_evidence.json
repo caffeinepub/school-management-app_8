@@ -1,0 +1,118 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-build-a-login-page-as-the-app-entry-point-it-should-have-two-login-forms-one-for-the-teacher-and-one-for-students-after-successful-login-redirect-to-the-appropriate-dashboard-based-on-role-include-a-sign-in-as-teacher-and-sign-in-as-student-tab-or-toggle",
+      "featureTitle": "Build a login page as the app entry point. It should have two login forms: one for the teacher and one for students. After successful login, redirect to the appropriate dashboard based on role. Include a 'Sign in as Teacher' and 'Sign in as Student' tab or toggle.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useAuth.ts",
+        "frontend/src/pages/LoginPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-teacher-dashboard-with-navigation-sections-students-attendance-marks-events-semesters-exams-and-complaints-the-teacher-can-create-student-accounts-enter-and-edit-attendance-per-student-per-date-enter-and-edit-marks-per-student-per-subject-per-semester-create-edit-delete-events-add-semesters-and-enter-semester-exam-results-per-student-view-all-student-complaints",
+      "featureTitle": "Build a Teacher Dashboard with navigation sections: Students, Attendance, Marks, Events, Semesters & Exams, and Complaints. The teacher can: create student accounts; enter and edit attendance per student per date; enter and edit marks per student per subject per semester; create/edit/delete events; add semesters and enter semester exam results per student; view all student complaints.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/teacher/AttendanceSection.tsx",
+        "frontend/src/components/teacher/ComplaintsSection.tsx",
+        "frontend/src/components/teacher/EventsSection.tsx",
+        "frontend/src/components/teacher/MarksSection.tsx",
+        "frontend/src/components/teacher/SemestersSection.tsx",
+        "frontend/src/components/teacher/StudentsSection.tsx",
+        "frontend/src/pages/TeacherDashboard.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-student-dashboard-with-read-only-sections-my-attendance-my-marks-events-my-semester-results-and-complaint-box-students-can-view-their-own-attendance-records-marks-upcoming-events-and-semester-exam-results-the-complaint-box-section-has-a-text-input-form-to-submit-a-complaint",
+      "featureTitle": "Build a Student Dashboard with read-only sections: My Attendance, My Marks, Events, My Semester Results, and Complaint Box. Students can view their own attendance records, marks, upcoming events, and semester exam results. The Complaint Box section has a text input form to submit a complaint.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/student/ComplaintBoxSection.tsx",
+        "frontend/src/components/student/MyAttendanceSection.tsx",
+        "frontend/src/components/student/MyMarksSection.tsx",
+        "frontend/src/components/student/MySemesterResultsSection.tsx",
+        "frontend/src/pages/StudentDashboard.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-11"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-clean-professional-school-themed-visual-design-across-the-entire-app-use-a-color-palette-of-deep-navy-and-white-with-gold-accents-clear-sans-serif-typography-a-structured-sidebar-layout-for-dashboards-and-card-based-content-sections-ensure-the-design-is-consistent-across-teacher-and-student-views",
+      "featureTitle": "Apply a clean, professional school-themed visual design across the entire app. Use a color palette of deep navy and white with gold accents, clear sans-serif typography, a structured sidebar layout for dashboards, and card-based content sections. Ensure the design is consistent across teacher and student views.",
+      "files": [
+        "frontend/src/components/layout/DashboardLayout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-generate-and-display-a-school-logo-crest-illustration-used-on-the-login-page-and-dashboard-header",
+      "featureTitle": "Generate and display a school logo/crest illustration used on the login page and dashboard header.",
+      "files": [
+        "frontend/src/pages/LoginPage.tsx",
+        "frontend/src/pages/StudentDashboard.tsx",
+        "frontend/src/pages/TeacherDashboard.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
